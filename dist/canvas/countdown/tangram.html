@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<canvas id="canvas" width="400" height="400" style="border: 1px solid black;">no canvas ? sad. </canvas>
+		<script type="text/javascript">
+			window.onload = function() {
+				var blocks = [{
+						"color": "red",
+						"pos": [
+							{ x: 0, y: 0 },
+							{ x: 400, y: 0 },
+							{ x: 200, y: 200 }
+						]
+					},
+					{
+						"color": "yellow",
+						"pos": [
+							{ x: 0, y: 0 },
+							{ x: 200, y: 200 },
+							{ x: 0, y: 400 }
+						]
+					},
+					{
+						"color": "lightblue",
+						"pos": [
+							{ x: 400, y: 400 },
+							{ x: 400, y: 200 },
+							{ x: 200, y: 400 }
+						]
+					},
+					{
+						"color": "orange",
+						"pos": [
+							{ x: 100, y: 300 },
+							{ x: 300, y: 300 },
+							{ x: 200, y: 400 },
+							{ x: 0, y: 400 }
+						]
+					},
+					{
+						"color": "purple",
+						"pos": [
+							{ x: 200, y: 200 },
+							{ x: 100, y: 300 },
+							{ x: 300, y: 300 }
+						]
+					},
+					{
+						"color": "pink",
+						"pos": [
+							{ x: 300, y: 100 },
+							{ x: 200, y: 200 },
+							{ x: 300, y: 300 },
+							{ x: 400, y: 200 }
+						]
+					},
+					{
+						"color": "orchid",
+						"pos": [
+							{ x: 400, y: 0 },
+							{ x: 400, y: 200 },
+							{ x: 300, y: 100 }
+						]
+					}
+				];
+				var canvas = document.getElementById("canvas");
+				var ctx = canvas.getContext("2d");
+
+				for(var i = 0; i < blocks.length; i++) {
+					ctx.beginPath();
+					ctx.moveTo(blocks[i].pos[0].x, blocks[i].pos[0].y);
+					for(var j = 1; j < blocks[i].pos.length; j++) {
+						ctx.lineTo(blocks[i].pos[j].x, blocks[i].pos[j].y);
+					}
+					ctx.closePath();
+					ctx.fillStyle = blocks[i].color;
+					ctx.strokeStyle = "black";
+					ctx.lineWidth = 1;
+					ctx.fill();
+					ctx.stroke();
+				}
+
+			}
+		</script>
+
+	</body>
+
+</html>

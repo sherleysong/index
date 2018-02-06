@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="canvas" width="400" height="400">no canvas ? sad. </canvas>
+		<script src="shapePath.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+			window.onresize = window.onload = function() {
+
+				var WINDOW_WIDTH = window.innerWidth;
+				var WINDOW_HEIGHT = window.innerHeight;
+
+				canvas.width = WINDOW_WIDTH;
+				canvas.height = WINDOW_HEIGHT;
+
+				var bgcolor = ctx.createLinearGradient(0, 0, 0, canvas.height);
+				bgcolor.addColorStop(0, "black");
+				bgcolor.addColorStop(1, "darkblue");
+				ctx.fillStyle = bgcolor;
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+				for(var i = 0; i < 100; i++) {
+					var R = Math.random() * 0.5 + 0.3;
+					var x = Math.random() * canvas.width;
+					var y = Math.random() * canvas.height * 0.5;
+					var rotateDeg = Math.random() * Math.PI / 2;
+					drawStar(ctx, R, x, y, rotateDeg);
+				}
+				drawMoon(ctx);
+				drawGound(ctx, canvas.width, canvas.height);
+
+			}
+
+			function drawStar(ctx, R, x, y, rotateDeg) {
+				ctx.save();
+				ctx.fillStyle = "#FB2";
+				ctx.strokeStyle = "#FD5";
+				ctx.lineWidth = 2;
+				ctx.lineJoin = "round";
+				ctx.translate(x, y);
+				ctx.rotate(rotateDeg);
+				ctx.scale(R, R);
+				starPath(ctx);
+				ctx.fill();
+				ctx.stroke();
+				ctx.restore();
+			}
+
+			function drawGound(ctx, w, h) {
+				ctx.save();
+				var groundColor = ctx.createLinearGradient(0, 0, 0, canvas.height);
+				groundColor.addColorStop(0, "#580");
+				groundColor.addColorStop(1, "#030");
+				ctx.fillStyle = groundColor;
+				ctx.beginPath();
+				ctx.moveTo(0, h / 1.2);
+				ctx.bezierCurveTo(w / 2, h / 2, w / 2, h / 0.9, w, h / 1.2);
+				ctx.lineTo(w, h);
+				ctx.lineTo(0, h);
+				ctx.closePath();
+				ctx.fill();
+				ctx.restore();
+			}
+
+			function drawMoon(ctx) {
+				ctx.save();
+				ctx.beginPath();
+				ctx.translate(300, 100);
+				ctx.rotate(Math.PI * .9);
+				ctx.fillStyle = "#FD5";
+				moonPath(ctx, 80);
+				ctx.fill();
+				ctx.restore()
+			}
+		</script>
+	</body>
+
+</html>
